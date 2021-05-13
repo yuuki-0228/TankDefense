@@ -1,0 +1,18 @@
+//ローカル座標の番号.
+#LocalPosNumber
+8
+//表示幅、高さ
+#dispSize
+566, 214
+//元画像幅、高さ
+#baseSize
+566, 214
+//1コマ当たりの幅、高さ
+#strideSize
+566, 214
+//表示座標
+#dispPos
+660, 360, 5
+//最大フレーム数
+#frameNum
+1
