@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTemplate", "DirectXTemplate\DirectXTemplate.vcxproj", "{059D3B8E-3311-4E7B-91CA-7803827272F4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TankDefense", "TankDefense\TankDefense.vcxproj", "{059D3B8E-3311-4E7B-91CA-7803827272F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
