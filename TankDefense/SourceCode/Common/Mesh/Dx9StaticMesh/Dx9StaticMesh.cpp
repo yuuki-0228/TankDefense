@@ -20,6 +20,7 @@ CDX9StaticMesh::CDX9StaticMesh()
 	, m_ppIndexBuffer		( nullptr )
 	, m_pSampleLinear		( nullptr )
 	, m_pMesh				( nullptr )
+	, m_pMeshForRay			( nullptr )
 	, m_NumMaterials		( 0 )
 	, m_pMaterials			( nullptr )
 	, m_NumAttr				( 0 )
@@ -70,6 +71,20 @@ HRESULT CDX9StaticMesh::LoadXMesh(const char* fileName)
 		nullptr,
 		&m_NumMaterials,		// (out)マテリアル数.
 		&m_pMesh ))){			// (out)メッシュオブジェクト.
+		ERROR_MESSAGE("Xファイル読込 : 失敗");
+		return E_FAIL;
+	}
+
+	// Xファイルのロード(レイとの判定用).
+	if( FAILED( D3DXLoadMeshFromX(
+		fileName,				// ファイル名.
+		D3DXMESH_SYSTEMMEM,		// システムメモリに読み込み.
+		m_pDevice9, 
+		nullptr,
+		&pD3DXMtrlBuffer,		// (out)マテルアル情報.
+		nullptr,
+		&m_NumMaterials,		// (out)マテリアル数.
+		&m_pMeshForRay ))){		// (out)メッシュオブジェクト.
 		ERROR_MESSAGE("Xファイル読込 : 失敗");
 		return E_FAIL;
 	}
@@ -270,6 +285,7 @@ void CDX9StaticMesh::Release()
 		SAFE_DELETE_ARRAY( m_ppIndexBuffer );
 	}
 	SAFE_DELETE_ARRAY( m_pMaterials );
+	SAFE_RELEASE( m_pMeshForRay );
 	SAFE_RELEASE( m_pMesh );
 	SAFE_RELEASE( m_pSampleLinear );
 	SAFE_RELEASE( m_pVertexBuffer );

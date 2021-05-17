@@ -29,6 +29,10 @@ void CCollisions::InitCollision( const ECollNo& no, const STranceform& t )
 	case ECollNo::Ray:
 		m_pRay = std::make_unique<CRay>();
 		m_pRay->SetTranceform( t );
+		break;
+	case ECollNo::Mesh:
+		m_pMesh = std::make_unique<CMesh>();
+		m_pMesh->SetTranceform( t );
 	default:
 		break;
 	}

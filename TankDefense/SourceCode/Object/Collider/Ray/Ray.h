@@ -24,11 +24,15 @@ public:
 	// 終了位置の設定.
 	void SetEndPos( const D3DXVECTOR3& pos )	{ m_EndPos = pos ; }
 	// 方向ベクトルの取得.
-	D3DXVECTOR3 GetVector()		const { return m_Vector; }
+	D3DXVECTOR3	GetVector()		const { return m_Vector; }
 	// 開始位置の取得.
-	D3DXVECTOR3 GetStartPos()	const { return m_StartPos; }
+	D3DXVECTOR3	GetStartPos()	const { return m_StartPos; }
 	// 終了位置の取得.
-	D3DXVECTOR3 GetEndPos()		const { return m_EndPos; }
+	D3DXVECTOR3	GetEndPos()		const { return m_EndPos; }
+	// 長さの取得.
+	float		GetLength()		const { return D3DXVec3Length( &(m_Vector) ); }
+	float		GetLengthSq()	const { return D3DXVec3LengthSq( &(m_Vector) ); }
+
 
 private:
 	D3DXVECTOR3 m_Vector;	// 方向ベクトル.

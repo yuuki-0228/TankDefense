@@ -3,6 +3,7 @@
 #include "..\Capsule\Capsule.h"
 #include "..\Box\Box.h"
 #include "..\Ray\Ray.h"
+#include "..\Mesh\Mesh.h"
 
 namespace coll
 {
@@ -228,6 +229,84 @@ namespace coll
 		pOutEndPos->x = l.x + a2 * v.x;
 		pOutEndPos->y = l.y + a2 * v.y;
 		pOutEndPos->z = l.z + a2 * v.z;
+
+		return true;
+	}
+
+	//---------------------------------------.
+	// レイとメッシュの当たり判定.
+	//---------------------------------------.
+	bool IsRayToMesh( CRay* pRay, CMesh* pMesh, float* pOutDistance, D3DXVECTOR3* pIntersect, D3DXVECTOR3* pOutNormal, const bool& isNormalHit )
+	{
+		pRay->SetHitOff();	// ヒットフラグをおろしとく.
+
+		// 対象メッシュのの逆行列を求める.
+		D3DXMATRIX mInvWorld;
+		D3DXMatrixInverse( &mInvWorld, nullptr, &pMesh->GetTranceform().GetWorldMatrix() );
+
+		// レイの開始位置と終了位置を設定.
+		D3DXVECTOR3 startVec, endVec;
+		startVec	= pRay->GetStartPos();
+		endVec		= pRay->GetStartPos() + (pRay->GetVector()*pRay->GetLength());
+
+		// レイの始点,終点に反映.
+		D3DXVec3TransformCoord( &startVec, &startVec, &mInvWorld );
+		D3DXVec3TransformCoord( &endVec, &endVec, &mInvWorld );
+
+		// 方向を求める(ベクトル).
+		D3DXVECTOR3 vecDirection = endVec - startVec;
+
+		BOOL		isHit	= FALSE;	// 命中フラグ.
+		DWORD		dwIndex	= 0;		// インデックス番号.
+		D3DXVECTOR3	vertex[3];			// 頂点座標.
+		FLOAT		U = 0.0f, V = 0.0f;	// 重心ヒット座標.
+
+		// 対象メッシュとレイとが当たっているか判定.
+		D3DXIntersect(
+			pMesh->GetMesh(),		// 対象メッシュ.
+			&startVec,				// レイの開始位置.
+			&vecDirection,			// レイの方向.
+			&isHit,					// (out)判定結果.
+			&dwIndex,				// (out)衝突時にレイの始点に最も近い面のインデックス番号.
+			&U, &V,					// (out)重心ヒット座標.
+			pOutDistance,			// (out)メッシュとの距離.
+			nullptr, nullptr );
+
+		// 当たってないので終了.
+		if( isHit == FALSE ) return false;
+
+		// 頂点情報を取得できなかったので終了.
+		if( FAILED( pMesh->FindVerticesOnPoly( dwIndex, vertex )) ) return false;
+
+		// ローカル交点pは、v0 + U*(v1-v0) + v*(v2-v0) で求まる.
+		D3DXVECTOR3 v0, v1, v2;
+		v0 = vertex[0];
+		v1 = vertex[1];
+		v2 = vertex[2];
+		*pIntersect = v0 + U * (v1 - v0) + V * (v2 - v0);
+
+		// メッシュとの距離が '1,0' より大きければ終了.
+		if( *pOutDistance > 1.0f ) return false;
+
+		if( isNormalHit == true ){
+			D3DXVECTOR3 normal;
+			// 二本のベクトルに対して、直角のベクトルを作成する.
+			D3DXVec3Cross( &normal, &(v1 - v0), &(v2 - v0) );
+			D3DXVec3Normalize( &normal, &normal );
+
+			if( pOutNormal != nullptr ) *pOutNormal = normal;
+
+			// vecDirectionとvNormalが逆向きの時DOT演算の結果が-1、
+			// 一緒だったら１、逆向きの時はレイとレイが対面でぶつかり合っているから当たっている、
+			// 同じ向きの時は対面でぶつかっていないから当たっていない.
+			float vecDirDotNormal = D3DXVec3Dot( &vecDirection, &normal );
+			if( vecDirDotNormal >= 0.0f ) return false;
+
+			// 表から来たレイと衝突している.
+		}
+
+		// ヒットフラグを立てる.
+		pRay->SetHitOn();
 
 		return true;
 	}
