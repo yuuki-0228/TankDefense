@@ -191,6 +191,7 @@
     <ClCompile Include="SourceCode\Object\Collider\Colliders\Colliders.cpp" />
     <ClCompile Include="SourceCode\Object\Collider\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="SourceCode\Object\Collider\CollisionRender\CollisionRender.cpp" />
+    <ClCompile Include="SourceCode\Object\Collider\Mesh\Mesh.cpp" />
     <ClCompile Include="SourceCode\Object\Collider\Ray\Ray.cpp" />
     <ClCompile Include="SourceCode\Object\Collider\Sphere\Sphere.cpp" />
     <ClCompile Include="SourceCode\Object\Fade\Fade.cpp" />
@@ -299,6 +300,7 @@
     <ClInclude Include="SourceCode\Object\Collider\Colliders\Colliders.h" />
     <ClInclude Include="SourceCode\Object\Collider\CollisionManager\CollisionManager.h" />
     <ClInclude Include="SourceCode\Object\Collider\CollisionRender\CollisionRender.h" />
+    <ClInclude Include="SourceCode\Object\Collider\Mesh\Mesh.h" />
     <ClInclude Include="SourceCode\Object\Collider\Ray\Ray.h" />
     <ClInclude Include="SourceCode\Object\Collider\Sphere\Sphere.h" />
     <ClInclude Include="SourceCode\Object\Fade\Fade.h" />

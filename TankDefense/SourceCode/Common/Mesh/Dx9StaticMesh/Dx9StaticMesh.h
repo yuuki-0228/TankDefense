@@ -72,6 +72,9 @@ public:
 	// 描画関数.
 	void Render();
 
+	// メッシュの取得.
+	inline LPD3DXMESH GetMesh() const { return m_pMeshForRay; }
+
 private:
 	// メッシュ読み込み.
 	HRESULT LoadXMesh(const char* fileName);
@@ -101,6 +104,7 @@ private:
 	ID3D11SamplerState*	m_pSampleLinear;		// サンプラ.
 
 	LPD3DXMESH			m_pMesh;				// メッシュオブジェクト.
+	LPD3DXMESH			m_pMeshForRay;			// レイとの当たり判定用メッシュオブジェクト.
 	DWORD				m_NumMaterials;			// マテリアル数.
 
 	MY_MATERIAL*	m_pMaterials;				// マテリアル構造体.

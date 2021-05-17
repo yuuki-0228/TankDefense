@@ -10,6 +10,7 @@
 #include "..\Capsule\Capsule.h"
 #include "..\Box\Box.h"
 #include "..\Ray\Ray.h"
+#include "..\Mesh\Mesh.h"
 
 #include <memory>
 
@@ -21,6 +22,7 @@ enum class enCollNo : unsigned int
 	Capsule,	// カプセル.
 	Box,		// ボックス.
 	Ray,		// レイ.
+	Mesh,		// メッシュ.
 
 	Max,
 } typedef ECollNo;
@@ -51,12 +53,15 @@ public:
 	template<> CBox*		GetCollision(){ return m_pBox.get(); }
 	// 当たり判定の取得(レイ).
 	template<> CRay*		GetCollision(){ return m_pRay.get(); }
+	// 当たり判定の取得(レイ).
+	template<> CMesh*		GetCollision(){ return m_pMesh.get(); }
 
 private:
 	std::unique_ptr<CSphere>	m_pSphere;	// 球体.
 	std::unique_ptr<CCapsule>	m_pCapsule;	// カプセル.
 	std::unique_ptr<CBox>		m_pBox;		// ボックス.
 	std::unique_ptr<CRay>		m_pRay;		// レイ.
+	std::unique_ptr<CMesh>		m_pMesh;		// レイ.
 };
 
 #endif	// #ifndef COLLISIONS_H.

@@ -22,6 +22,7 @@ class CSphere;
 class CCapsule;
 class CBox;
 class CRay;
+class CMesh;
 
 namespace coll
 {
@@ -37,6 +38,9 @@ namespace coll
 
 	// レイと球体の当たり判定.
 	bool IsRayToSphere( CRay* pRay, CSphere* pSphere, D3DXVECTOR3* pOutStartPos, D3DXVECTOR3* pOutEndPos );
+
+	// レイとメッシュの当たり判定.
+	bool IsRayToMesh( CRay* pRay, CMesh* pMesh, float* pOutDistance, D3DXVECTOR3* pIntersect, D3DXVECTOR3* pOutNormal, const bool& isNormalHit = true );
 
 };
 
