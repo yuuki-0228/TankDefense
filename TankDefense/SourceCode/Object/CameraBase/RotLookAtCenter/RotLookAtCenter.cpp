@@ -1,4 +1,5 @@
 #include "RotLookAtCenter.h"
+#include "..\..\..\Utility\Input\Input.h"
 
 CRotLookAtCenter::CRotLookAtCenter()
 	: m_vDegree			{ 0.0f, 0.0f }
@@ -31,7 +32,28 @@ bool CRotLookAtCenter::LoadParameter( const bool& isLoad )
 // 更新.
 void CRotLookAtCenter::Update( const float& deltaTime )
 {
-	m_Tranceform.Position = { 10.0f, 10.0f, 10.0f };
+	if ( CKeyInput::IsHold( VK_LCONTROL ) == false ) return;
+
+	// 前進.
+	if ( CKeyInput::IsHold( 'W' ) == true || CXInput::GetLeftThumbY() > IDLE_THUMB_MAX )
+		m_Tranceform.Position.z += 0.1f;
+	// 後退.
+	if ( CKeyInput::IsHold( 'S' ) == true || CXInput::GetLeftThumbY() < IDLE_THUMB_MIN )
+		m_Tranceform.Position.z -= 0.1f;
+	// 右に移動.
+	if ( CKeyInput::IsHold( 'D' ) == true || CXInput::GetLeftThumbX() > IDLE_THUMB_MAX )
+		m_Tranceform.Position.x += 0.1f;
+	// 左に移動.
+	if ( CKeyInput::IsHold( 'A' ) == true || CXInput::GetLeftThumbX() < IDLE_THUMB_MIN )
+		m_Tranceform.Position.x -= 0.1f;
+	// 上昇.
+	if ( CKeyInput::IsHold( 'E' ) == true || CXInput::GetRightTrigger() > IDLE_TIGGER_MAX )
+		m_Tranceform.Position.y += 0.1f;
+	// 下降.
+	if ( CKeyInput::IsHold( 'Q' ) == true || CXInput::GetLeftTrigger() > IDLE_TIGGER_MAX )
+		m_Tranceform.Position.y -= 0.1f;
+
+//	m_Tranceform.Position = { 10.0f, 10.0f, 10.0f };
 }
 
 //-------------------------------.

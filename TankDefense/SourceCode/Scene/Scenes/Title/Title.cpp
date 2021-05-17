@@ -13,16 +13,20 @@
 #include "..\..\..\Object\Collider\Ray\Ray.h"
 #include "..\..\..\Utility\XAudio2\SoundManager.h"
 #include "..\..\..\Resource\SpriteResource\SpriteResource.h"
+#include "..\..\..\Object\GameObject\Actor\Player\CPlayer.h"
 
 CTitle::CTitle( CSceneManager* pSceneManager )
 	: CSceneBase	( pSceneManager )
 	, m_pSkinMesh	( nullptr )
 	, m_pStaticMesh	( nullptr )
+	, m_pPlayer		( nullptr )
 {
+	m_pPlayer = new CPlayer();
 }
 
 CTitle::~CTitle()
 {
+	SAFE_DELETE( m_pPlayer );
 }
 
 //============================.
@@ -103,6 +107,8 @@ void CTitle::Update()
 	if( CKeyInput::IsMomentPress('G') == true ){
 		SetSceneChange();
 	}
+
+	m_pPlayer->Update( GetDeltaTime<float>() );
 }
 
 //============================.
@@ -120,6 +126,8 @@ void CTitle::ModelRender()
 
 	m_effect2.Render();
 	m_effect1.Render();
+
+	m_pPlayer->Render();
 }
 
 //============================.
