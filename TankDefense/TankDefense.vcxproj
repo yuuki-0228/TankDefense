@@ -195,6 +195,7 @@
     <ClCompile Include="SourceCode\Object\Collider\Sphere\Sphere.cpp" />
     <ClCompile Include="SourceCode\Object\Fade\Fade.cpp" />
     <ClCompile Include="SourceCode\Object\GameObject\Actor\Actor.cpp" />
+    <ClCompile Include="SourceCode\Object\GameObject\Actor\Bullet\CBullet.cpp" />
     <ClCompile Include="SourceCode\Object\GameObject\Actor\Player\CPlayer.cpp" />
     <ClCompile Include="SourceCode\Object\GameObject\GameObject.cpp" />
     <ClCompile Include="SourceCode\Object\GameObject\Widget\Widget.cpp" />
@@ -304,6 +305,7 @@
     <ClInclude Include="SourceCode\Object\Collider\Sphere\Sphere.h" />
     <ClInclude Include="SourceCode\Object\Fade\Fade.h" />
     <ClInclude Include="SourceCode\Object\GameObject\Actor\Actor.h" />
+    <ClInclude Include="SourceCode\Object\GameObject\Actor\Bullet\CBullet.h" />
     <ClInclude Include="SourceCode\Object\GameObject\Actor\Player\CPlayer.h" />
     <ClInclude Include="SourceCode\Object\GameObject\GameObject.h" />
     <ClInclude Include="SourceCode\Object\GameObject\GameObjectList.h" />

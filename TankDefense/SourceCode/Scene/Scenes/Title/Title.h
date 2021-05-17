@@ -35,7 +35,6 @@ private:
 	CEffectManager m_effect1;
 	CEffectManager m_effect2;
 	CPlayer*	m_pPlayer;
-
 };
 
 #endif	// #ifndef TITLE_H.
