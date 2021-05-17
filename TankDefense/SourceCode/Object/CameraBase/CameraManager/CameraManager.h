@@ -3,7 +3,7 @@
 
 #include "..\CameraBase.h"
 
-class CFreeCamera;	// フリーカメラ.
+class CFreeCamera;		// フリーカメラ.
 
 /**************************************
 *	カメラ管理クラス.
@@ -56,6 +56,8 @@ private:
 	float							m_MoveSecondsSpeed;
 	bool							m_IsMoveCamera;
 	bool							m_IsActiveFreeCamera;
+
+	D3DXVECTOR3						m_LookCameraTargetPos;
 
 private:
 	// コピー・ムーブコンストラクタ, 代入演算子の削除.

@@ -18,6 +18,8 @@ CCameraManager::CCameraManager()
 	, m_MoveSecondsSpeed	( MOVE_SECONDS_SPEED )
 	, m_IsMoveCamera		( false )
 	, m_IsActiveFreeCamera	( false )
+
+	, m_LookCameraTargetPos	()
 {
 	m_pFreeCamera = std::make_unique<CFreeCamera>();
 	m_pCamera = m_pFreeCamera.get();

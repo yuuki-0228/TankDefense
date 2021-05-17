@@ -7,6 +7,8 @@
 #include "..\..\..\Object\CameraBase\RotLookAtCenter\RotLookAtCenter.h"
 #include "..\..\..\Common\Mesh\RayMesh\RayMesh.h"
 
+class CPlayer;
+
 /**********************************
 *	タイトルシーンクラス.
 */
@@ -32,6 +34,8 @@ private:
 	CSprite*	m_Sprite;
 	CEffectManager m_effect1;
 	CEffectManager m_effect2;
+	CPlayer*	m_pPlayer;
+
 };
 
 #endif	// #ifndef TITLE_H.
