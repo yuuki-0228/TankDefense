@@ -27,7 +27,8 @@ namespace bit
 		(*pBit) = 0;
 	}
 	// ƒrƒbƒg‚ª—§‚Á‚Ä‚¢‚é‚©.
-	bool IsBitFlag( const unsigned int& bit, const unsigned int& bitFlag )
+	template<typename T>
+	bool IsBitFlag( const T& bit, const unsigned int& bitFlag )
 	{
 		return (bit & bitFlag);
 	}
