@@ -58,4 +58,25 @@ private:
 	CMeshResorce& operator = ( CMeshResorce && )		= delete;
 };
 
+namespace mesh
+{
+	// スキンメッシュのアタッチ.
+	template<class T = CDX9SkinMesh>
+	static bool AttachSkinMesh( T** pMesh, const char* name )
+	{
+		*pMesh = CMeshResorce::GetSkin( name );
+		if( *pMesh == nullptr ) return false;
+		return true;
+	}
+
+	// スタティックメッシュのアタッチ.
+	template<class T = CDX9StaticMesh>
+	static bool AttachStaticMesh( T** pMesh, const char* name )
+	{
+		*pMesh = CMeshResorce::GetStatic( name );
+		if( *pMesh == nullptr ) return false;
+		return true;
+	}
+};
+
 #endif	// #ifndef MESH_RESORCE_H.
