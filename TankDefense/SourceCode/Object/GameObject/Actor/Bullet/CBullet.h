@@ -2,16 +2,14 @@
 #include "..\Actor.h"
 #include "..\..\..\..\Common\Mesh\RayMesh\RayMesh.h"
 
-class CDX9SkinMesh;
-class CRotLookAtCenter;
-class CBullet;
+class CDX9StaticMesh;
 
-class CPlayer
+class CBullet
 	: public CActor
 {
 public:
-	CPlayer();
-	~CPlayer();
+	CBullet();
+	~CBullet();
 
 	// èâä˙âªä÷êî.
 	virtual bool Init();
@@ -29,13 +27,13 @@ public:
 	//	Updateä÷êîÇÃç≈å„Ç…åƒÇ‘.
 	virtual void UpdateCollision();
 
-protected:
-	CDX9SkinMesh*	m_pSkinMesh;
-	std::unique_ptr<CRotLookAtCenter>	m_pLookCamera;
+	void Shot( D3DXVECTOR3 Pos, D3DXVECTOR3 MoveVec );
+
+private:
+	CDX9StaticMesh*	m_pStaticMesh;
 
 	D3DXVECTOR3		m_pos;
-	D3DXVECTOR3		m_Rot;
 	D3DXVECTOR3		m_MoveVec3;
 
-	CBullet*		m_pBullet;
+	bool			m_ShotFlag;
 };
