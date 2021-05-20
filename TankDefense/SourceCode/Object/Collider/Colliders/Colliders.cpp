@@ -5,6 +5,7 @@ CCollisions::CCollisions()
 	, m_pCapsule	( nullptr )
 	, m_pBox		( nullptr )
 	, m_pRay		( nullptr )
+	, m_pMesh		( nullptr )
 {
 }
 

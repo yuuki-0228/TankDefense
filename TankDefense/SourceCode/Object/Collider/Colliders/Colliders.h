@@ -61,7 +61,7 @@ private:
 	std::unique_ptr<CCapsule>	m_pCapsule;	// カプセル.
 	std::unique_ptr<CBox>		m_pBox;		// ボックス.
 	std::unique_ptr<CRay>		m_pRay;		// レイ.
-	std::unique_ptr<CMesh>		m_pMesh;		// レイ.
+	std::unique_ptr<CMesh>		m_pMesh;	// レイ.
 };
 
 #endif	// #ifndef COLLISIONS_H.
