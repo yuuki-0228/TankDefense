@@ -28,15 +28,14 @@ bool CBullet::Init()
 
 void CBullet::Update( const float & deltaTime )
 {
-	float speed = 0.5f;
-
 	if ( m_ShotFlag == true ){
+
+		float speed = 0.5f;
 		m_pos -= m_MoveVec3 * speed;
 		
 		m_pStaticMesh->SetPosition( m_pos );
 
-		if ( CKeyInput::IsHold( VK_LCONTROL ) == false ) return;
-		if ( CKeyInput::IsPress( VK_SPACE ) == true ) m_ShotFlag = false;
+		if ( IsDisplayOut() == true ) m_ShotFlag = false;
 	}
 }
 
@@ -63,9 +62,9 @@ void CBullet::Shot( D3DXVECTOR3 Pos, D3DXVECTOR3 MoveVec )
 {
 	if ( CKeyInput::IsHold( VK_LCONTROL ) == true ) return;
 
-	m_pos		= Pos;
-	m_pos.y		+= 4.0f;
-	m_MoveVec3	= MoveVec;
+	m_pos = Pos;
+	m_pos.y += 4.0f;
+	m_MoveVec3 = MoveVec;
 
-	m_ShotFlag	= true;
+	m_ShotFlag = true;
 }

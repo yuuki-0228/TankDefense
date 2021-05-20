@@ -46,10 +46,7 @@ void CPlayer::Update( const float & deltaTime )
 	if ( CKeyInput::IsPress( VK_RIGHT	) == true ) m_pLookCamera->DegreeHorizontalRightMove();
 	if ( CKeyInput::IsPress( VK_UP		) == true ) m_pos -= m_MoveVec3 * speed;
 	if ( CKeyInput::IsPress( VK_DOWN	) == true ) m_pos += m_MoveVec3 * speed;
-	if ( CKeyInput::IsPress( VK_SPACE ) == true ){
-
-		m_pBullet->Shot( m_pos, m_MoveVec3 );
-	}
+	if ( CKeyInput::IsPress( VK_SPACE	) == true ) m_pBullet->Shot( m_pos, m_MoveVec3 );
 
 	//ƒJƒƒ‰‚Ì‰¡‰ñ“]‚É‰ž‚¶‚Ä‰ñ“]‚³‚¹‚é.
 	m_Rot.y = m_pLookCamera->GetRadianX();

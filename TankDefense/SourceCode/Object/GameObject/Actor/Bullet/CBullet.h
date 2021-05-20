@@ -29,6 +29,8 @@ public:
 
 	void Shot( D3DXVECTOR3 Pos, D3DXVECTOR3 MoveVec );
 
+	bool GetShotFalg() const { return m_ShotFlag; }
+
 private:
 	CDX9StaticMesh*	m_pStaticMesh;
 
