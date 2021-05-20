@@ -42,7 +42,7 @@ public:
 	// 当たり判定の取得(レイ).
 	template<> CRay*		GetCollision(){ return m_pCollisions->GetCollision<CRay>(); }
 
-private:
+protected:
 	std::unique_ptr<CCollisions>	m_pCollisions;	// 複数のコリジョンを所持しているクラス.
 };
 
