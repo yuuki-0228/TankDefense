@@ -30,15 +30,15 @@ public:
 	virtual ~CSprite();
 
 	// 初期化.
-	HRESULT Init( ID3D11DeviceContext* pContext11, const char* texturePath );
+	virtual HRESULT Init( ID3D11DeviceContext* pContext11, const char* texturePath = nullptr );
 
 	// 解放.
 	void Release();
 
 	// 描画.
-	void Render( SSpriteRenderState* pRenderState = nullptr );
+	virtual void Render( SSpriteRenderState* pRenderState = nullptr );
 	// 3D描画.
-	void Render3D( const bool& isBillboard = false, SSpriteRenderState* pRenderState = nullptr );
+	virtual void Render3D( const bool& isBillboard = false, SSpriteRenderState* pRenderState = nullptr );
 
 	// テクスチャの取得.
 	inline ID3D11ShaderResourceView*	GetTexture()		const { return m_pSrcTexture; }
@@ -48,7 +48,9 @@ public:
 	inline void SetMaskTexture( ID3D11ShaderResourceView* pTexture ){ m_pMaskTexture = pTexture; }
 
 	// 頂点バッファの取得.
-	inline ID3D11Buffer*				GetVertexBuffer()	const { return m_pVertexBufferUI; }
+	inline ID3D11Buffer*				GetVertexBufferUI()	const { return m_pVertexBufferUI; }
+	// 頂点バッファの取得.
+	inline ID3D11Buffer*				GetVertexBuffer3D()	const { return m_pVertexBuffer3D; }
 	// 描画座標の取得.
 	inline D3DXVECTOR3					GetRenderPos()		const { return m_SState.vPos; }
 	// 画像サイズの取得.
@@ -74,10 +76,12 @@ public:
 	inline void SetScrollSpeedY( const float& speed ){ m_SpriteRenderState.AnimState.ScrollSpeed.y = speed; }
 
 protected:
-	// シェーダーの作成.
-	HRESULT InitShader();
+	// 頂点シェーダーの作成.
+	HRESULT VertexInitShader( const char* shaderPath = nullptr );
+	// ピクセルシェーダーの作成.
+	virtual HRESULT PixelInitShader();
 	// 定数バッファの作成.
-	HRESULT InitConstantBuffer();
+	virtual HRESULT InitConstantBuffer();
 	// サンプラの作成.
 	HRESULT InitSample();
 
@@ -98,14 +102,14 @@ protected:
 	// テクスチャの比率を取得.
 	int myGcd( int t, int t2 ) { if (t2 == 0) return t; return myGcd(t2, t % t2); }
 
-private:
-	SSpriteRenderState			m_SpriteRenderState;
-	ID3D11VertexShader*			m_pVertexShaderUI;						// 頂点シェーダー.
-	ID3D11VertexShader*			m_pVertexShader3D;						// 頂点シェーダー.
-	ID3D11PixelShader*			m_pPixelShaders[EPSShaderNo_Max];		// ピクセルシェーダー.
-	ID3D11InputLayout*			m_pVertexLayout;						// 頂点レイアウト.
-	ID3D11Buffer*				m_pConstantBuffer;						// コンスタントバッファ.
-	ID3D11SamplerState*			m_pSampleLinears[ESamplerState_Max];	// サンプラ:テクスチャに各種フィルタをかける.
+protected:
+	SSpriteRenderState				m_SpriteRenderState;
+	ID3D11VertexShader*				m_pVertexShaderUI;						// 頂点シェーダー.
+	ID3D11VertexShader*				m_pVertexShader3D;						// 頂点シェーダー.
+	std::vector<ID3D11PixelShader*>	m_pPixelShaders;						// ピクセルシェーダー.
+	ID3D11InputLayout*				m_pVertexLayout;						// 頂点レイアウト.
+	ID3D11Buffer*					m_pConstantBuffer;						// コンスタントバッファ.
+	ID3D11SamplerState*				m_pSampleLinears[ESamplerState_Max];	// サンプラ:テクスチャに各種フィルタをかける.
 
 	ID3D11ShaderResourceView*	m_pSrcTexture;	// 通常テクスチャ.
 	ID3D11ShaderResourceView*	m_pDestTexture;	// テクスチャ.

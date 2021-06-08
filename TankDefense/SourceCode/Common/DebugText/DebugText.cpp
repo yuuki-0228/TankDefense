@@ -77,7 +77,7 @@ void CDebugText::Render()
 
 	SSpriteRenderState ss;
 	ss.Tranceform = GetInstance()->m_Tranceform;
-	GetInstance()->m_pSpriteRender->Render( ss, GetInstance()->m_pBackSprite->GetTexture(), GetInstance()->m_pBackSprite->GetVertexBuffer() );
+	GetInstance()->m_pSpriteRender->Render( ss, GetInstance()->m_pBackSprite->GetTexture(), GetInstance()->m_pBackSprite->GetVertexBufferUI() );
 
 	// •`‰æÀ•W‚ðŽæ“¾.
 	D3DXVECTOR3 pos = GetInstance()->m_Tranceform.Position;

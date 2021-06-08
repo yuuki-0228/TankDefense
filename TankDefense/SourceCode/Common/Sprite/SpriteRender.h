@@ -30,9 +30,6 @@ class CSpriteRender : public CCommon
 		ALIGN16 D3DXVECTOR2 vUV;			// UV座標.
 		ALIGN16 D3DXVECTOR2 vViewPort;		// ビューポート.
 	};
-
-	const char* SHADER_NAME = "Data\\Shader\\Sprite.hlsl";
-
 public:
 	CSpriteRender();
 	virtual ~CSpriteRender();
