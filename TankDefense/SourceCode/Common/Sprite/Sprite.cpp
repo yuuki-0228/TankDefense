@@ -5,7 +5,7 @@
 
 namespace
 {
-	const char* SHADER_NAME = "Data\\Shader\\Sprite.hlsl";
+	const char* SHADER_NAME = "Data\\Shader\\Sprite\\Sprite.hlsl";
 	const char* PS_SHADER_ENTRY_NAMES[] =
 	{
 		"PS_Main",
@@ -42,7 +42,8 @@ CSprite::~CSprite()
 HRESULT CSprite::Init( ID3D11DeviceContext* pContext11, const char* texturePath )
 {
 	if( FAILED( SetDevice( pContext11 ) ))			return E_FAIL;
-	if( FAILED( InitShader() ))						return E_FAIL;
+	if( FAILED( VertexInitShader( SHADER_NAME ) ))	return E_FAIL;
+	if( FAILED( PixelInitShader() ))				return E_FAIL;
 	if( FAILED( InitSample() ))						return E_FAIL;
 	if( FAILED( InitConstantBuffer() ))				return E_FAIL;
 	if( FAILED( CreateTexture( texturePath ) ))		return E_FAIL;
@@ -262,7 +263,7 @@ void CSprite::Render3D( const bool& isBillboard, SSpriteRenderState* pRenderStat
 //---------------------------------------.
 // シェーダーの作成.
 //---------------------------------------.
-HRESULT CSprite::InitShader()
+HRESULT CSprite::VertexInitShader( const char* shaderPath )
 {
 	ID3DBlob* pCompiledShader = nullptr;
 	ID3DBlob* pErrors = nullptr;
@@ -275,7 +276,7 @@ HRESULT CSprite::InitShader()
 	// HLSLからバーテックスシェーダーのブロブを作成.
 	if( FAILED(
 		shader::InitShader(
-			SHADER_NAME,		// シェーダーファイル名.
+			shaderPath,			// シェーダーファイル名.
 			"VS_MainUI",		// シェーダーエントリーポイント.
 			"vs_5_0",			// シェーダーモデル.
 			uCompileFlag,		// シェーダーコンパイルフラグ.
@@ -298,7 +299,7 @@ HRESULT CSprite::InitShader()
 	// HLSLからバーテックスシェーダーのブロブを作成.
 	if( FAILED(
 		shader::InitShader(
-			SHADER_NAME,		// シェーダーファイル名.
+			shaderPath,			// シェーダーファイル名.
 			"VS_Main",			// シェーダーエントリーポイント.
 			"vs_5_0",			// シェーダーモデル.
 			uCompileFlag,		// シェーダーコンパイルフラグ.
@@ -341,7 +342,23 @@ HRESULT CSprite::InitShader()
 	}
 	SAFE_RELEASE(pCompiledShader);
 
+	return S_OK;
+}
+
+//---------------------------------------.
+// ピクセルシェーダーの作成.
+//---------------------------------------.
+HRESULT CSprite::PixelInitShader()
+{
+	ID3DBlob* pCompiledShader = nullptr;
+	ID3DBlob* pErrors = nullptr;
+	UINT uCompileFlag = 0;
+#ifdef _DEBUG
+	uCompileFlag =
+		D3D10_SHADER_DEBUG | D3D10_SHADER_SKIP_OPTIMIZATION;
+#endif	// #ifdef _DEBUG
 	int i = 0;
+	m_pPixelShaders.resize(EPSShaderNo_Max);
 	for( auto& p : m_pPixelShaders ){
 		// HLSLからピクセルシェーダーのブロブを作成.
 		if( FAILED(
@@ -367,7 +384,6 @@ HRESULT CSprite::InitShader()
 		}
 		i++;
 	}
-
 	return S_OK;
 }
 

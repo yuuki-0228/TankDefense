@@ -2,6 +2,11 @@
 #include "Sprite.h"
 #include "..\Shader\Shader.h"
 
+namespace
+{
+	const char* SHADER_NAME = "Data\\Shader\\Sprite\\Sprite.hlsl";
+};
+
 CSpriteRender::CSpriteRender()
 	: m_pSpriteQueue	()
 	, m_pVertexShader	( nullptr )
@@ -66,7 +71,7 @@ void CSpriteRender::Render()
 		if( pSprite == nullptr ) continue;
 
 		// ‰æ‘œî•ñ‚ÌŽæ“¾.
-		ID3D11Buffer*				pVertexBuffer	= pSprite->GetVertexBuffer();
+		ID3D11Buffer*				pVertexBuffer	= pSprite->GetVertexBufferUI();
 		ID3D11ShaderResourceView*	pTexture		= pSprite->GetTexture();
 	
 		Render( renderState, pTexture, pVertexBuffer );
